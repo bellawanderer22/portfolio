@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bella Wanderer — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #2a385d;
+    --navy-light: #3d4f7a;
+    --warm: #c98922;
+    --warm-light: #e8af62;
+    --sand: #f5f0e8;
+    --cream: #FAFAF8;
+    --white: #ffffff;
+    --text: #1a1a1a;
+    --text-light: #5a5a5a;
+    --text-muted: #8a8a8a;
+    --border: #e8e6e2;
+    --border-light: #f0eeea;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  ::selection { background: rgba(42,56,93,.12); }
+
+  /* ── Nav ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(250,250,248,.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav .inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2rem;
+  }
+
+  nav .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 500;
+    color: var(--navy); letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  nav .links { display: flex; gap: 2rem; align-items: center; }
+
+  nav .links a {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--text-muted);
+    text-decoration: none; transition: color 0.3s;
+  }
+  nav .links a:hover { color: var(--navy); }
+
+  .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+  .mobile-toggle span { display: block; width: 20px; height: 1.5px; background: var(--navy); margin: 4px 0; transition: all 0.3s; }
+
+  /* ── Section layout ── */
+  section { scroll-margin-top: 5rem; }
+
+  .container {
+    max-width: 1100px; margin: 0 auto; padding: 0 2rem;
+  }
+
+  .section-pad { padding: 6rem 0; }
+  .section-pad-lg { padding: 8rem 0; }
+
+  .section-label {
+    font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--navy);
+    margin-bottom: 0.75rem; font-weight: 500;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--text); letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+
+  .section-divider {
+    width: 40px; height: 1.5px; background: var(--warm);
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100svh;
+    display: flex; align-items: center;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero .container {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+    padding-top: 5rem; padding-bottom: 5rem;
+  }
+
+  .hero-text h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--text); letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; font-weight: 300;
+  }
+
+  .hero-text h1 span { color: var(--navy); }
+
+  .hero-text .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-style: italic;
+    color: var(--text-light); font-weight: 400;
+    margin-bottom: 2rem;
+  }
+
+  .hero-text p {
+    color: var(--text-light); max-width: 440px;
+    font-size: 0.9rem; line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .hero-links { display: flex; gap: 1.5rem; align-items: center; }
+
+  .hero-links a {
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.15em; text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: var(--navy); color: var(--white);
+    padding: 0.85rem 2rem; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--navy-light); }
+
+  .btn-outline {
+    color: var(--navy); padding: 0.85rem 2rem;
+    border: 1px solid var(--border); display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--navy); }
+
+  .hero-visual {
+    display: flex; justify-content: flex-end;
+  }
+
+  .hero-portrait {
+    max-width: 380px; width: 100%;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--cream);
+    position: relative;
+  }
+
+  .hero-portrait img {
+    width: 100%; height: 100%;
+    display: block; object-fit: cover;
+    aspect-ratio: 4 / 5;
+  }
+
+  .hero-portrait::after {
+    content: ""; position: absolute;
+    inset: auto 0 0 0; height: 40%;
+    background: linear-gradient(to top, rgba(42,56,93,.08), transparent);
+    pointer-events: none;
+  }
+
+  /* ── Skills ── */
+  .skills-section { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .skills-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .skill-category h3 {
+    font-size: 1.4rem; color: var(--text);
+    margin-bottom: 2rem;
+  }
+
+  .skill-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.9rem 0; border-bottom: 1px solid var(--border-light);
+  }
+
+  .skill-name { font-size: 0.85rem; color: var(--text); font-weight: 500; }
+
+  .skill-source {
+    font-size: 0.7rem; color: var(--text-muted);
+    font-style: italic; text-align: right; max-width: 200px;
+  }
+
+  /* ── Experience ── */
+  .experience-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 3rem; padding: 3rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .experience-item:last-child { border-bottom: none; }
+
+  .exp-meta { }
+
+  .exp-date {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-location {
+    font-size: 0.8rem; color: var(--text-muted);
+  }
+
+  .exp-content h3 {
+    font-size: 1.5rem; color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .exp-company {
+    font-size: 0.9rem; color: var(--navy);
+    font-weight: 500; margin-bottom: 1rem;
+  }
+
+  .exp-company a {
+    color: var(--navy); text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  .exp-company a:hover { border-color: var(--navy); }
+
+  .exp-description {
+    font-size: 0.85rem; color: var(--text-light);
+    line-height: 1.8; margin-bottom: 1.5rem;
+    max-width: 550px;
+  }
+
+  .exp-achievement {
+    background: var(--cream); border-left: 2px solid var(--warm);
+    padding: 1rem 1.25rem; margin-top: 1rem;
+  }
+
+  .exp-achievement .ach-label {
+    font-size: 0.6rem; text-transform: uppercase;
+    letter-spacing: 0.15em; color: var(--warm);
+    margin-bottom: 0.4rem; font-weight: 600;
+  }
+
+  .exp-achievement p {
+    font-size: 0.82rem; color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ── Achievements ── */
+  .achievements-section { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .achievements-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .achievement-card {
+    border: 1px solid var(--border); padding: 2rem;
+    transition: border-color 0.3s;
+  }
+  .achievement-card:hover { border-color: var(--navy); }
+
+  .achievement-card .number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; color: var(--navy);
+    font-weight: 300; line-height: 1; margin-bottom: 0.75rem;
+  }
+
+  .achievement-card h4 {
+    font-size: 1.1rem; margin-bottom: 0.5rem;
+  }
+
+  .achievement-card p {
+    font-size: 0.8rem; color: var(--text-light); line-height: 1.7;
+  }
+
+  .achievement-card .tag {
+    display: inline-block; font-size: 0.6rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--navy);
+    background: rgba(42,56,93,.06); padding: 0.3rem 0.6rem;
+    margin-top: 1rem;
+  }
+
+  /* ── Education ── */
+  .edu-item {
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 3rem; padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .edu-item:last-child { border-bottom: none; }
+
+  .edu-date {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-muted);
+  }
+
+  .edu-content h3 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+
+  .edu-school {
+    font-size: 0.9rem; color: var(--navy);
+    font-weight: 500; margin-bottom: 0.5rem;
+  }
+
+  .edu-detail {
+    font-size: 0.82rem; color: var(--text-light); line-height: 1.7;
+  }
+
+  /* ── Contact ── */
+  .contact-section { background: var(--navy); color: var(--white); }
+
+  .contact-inner {
+    text-align: center; max-width: 500px; margin: 0 auto;
+  }
+
+  .contact-inner h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white); font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-inner p {
+    font-size: 0.9rem; color: rgba(255,255,255,.6);
+    margin-bottom: 2.5rem; line-height: 1.8;
+  }
+
+  .contact-links {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-links a {
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.15em; text-decoration: none;
+    padding: 0.85rem 2rem; transition: all 0.3s;
+  }
+
+  .contact-links .cl-primary {
+    background: var(--white); color: var(--navy);
+  }
+  .contact-links .cl-primary:hover { background: var(--sand); }
+
+  .contact-links .cl-outline {
+    border: 1px solid rgba(255,255,255,.25); color: var(--white);
+  }
+  .contact-links .cl-outline:hover { border-color: var(--white); }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--navy); border-top: 1px solid rgba(255,255,255,.08);
+    padding: 2rem; text-align: center;
+    font-size: 0.65rem; text-transform: uppercase;
+    letter-spacing: 0.15em; color: rgba(255,255,255,.3);
+  }
+
+  /* ── Scroll reveal ── */
+  [data-reveal] {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  [data-reveal].visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── Interactive project cards ── */
+  .project-preview {
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+  .project-preview:hover { border-color: var(--navy); }
+
+  .project-preview img {
+    width: 100%; height: 200px; object-fit: cover; object-position: top;
+    transition: transform 0.6s;
+  }
+  .project-preview:hover img { transform: scale(1.03); }
+
+  .project-preview .overlay {
+    position: absolute; inset: 0;
+    background: rgba(42,56,93,.85);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .project-preview:hover .overlay { opacity: 1; }
+
+  .project-preview .overlay span {
+    color: var(--white); font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    border: 1px solid rgba(255,255,255,.4);
+    padding: 0.6rem 1.5rem;
+  }
+
+  .project-info { padding: 1.25rem; }
+  .project-info h4 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+  .project-info p { font-size: 0.75rem; color: var(--text-muted); }
+
+  /* ── Mobile menu ── */
+  .mobile-nav {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(250,250,248,.97); z-index: 99;
+    flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    backdrop-filter: blur(20px);
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--navy);
+    text-decoration: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .hero .container { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-visual { justify-content: flex-start; }
+    .skills-grid { gap: 3rem; }
+    .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 1.5rem; }
+    .section-pad { padding: 4rem 0; }
+    .section-pad-lg { padding: 5rem 0; }
+
+    nav .links { display: none; }
+    .mobile-toggle { display: block; }
+
+    .hero { min-height: auto; padding-top: 6rem; }
+    .hero .container { padding-top: 2rem; padding-bottom: 3rem; }
+
+    .skills-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+    .experience-item { grid-template-columns: 1fr; gap: 0.75rem; }
+    .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+
+    .achievements-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-links { flex-direction: column; align-items: stretch; text-align: center; }
+    .hero-portrait { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="inner">
+    <a href="#hero" class="name">Bella Wanderer</a>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="mobile-toggle" id="menuToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#experience" onclick="closeMenu()">Experience</a>
+  <a href="#achievements" onclick="closeMenu()">Achievements</a>
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+
+<!-- ══════════════════════════════ -->
+<!-- HERO                          -->
+<!-- ══════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-text">
+      <p class="tagline">Marketing, Design & Luxury Hospitality</p>
+      <h1>Bella <span>Wanderer</span></h1>
+      <p>MSc candidate in Marketing & Management for Luxury Tourism at Les Roches. Currently building websites and digital strategies for luxury hospitality brands in Los Cabos, Mexico.</p>
+      <div class="hero-links">
+        <a href="#contact" class="btn-primary">Get in Touch</a>
+        <a href="#experience" class="btn-outline">View Experience</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-portrait">
+        <img src="bellaprofessional.jpeg" alt="Bella Wanderer portrait" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ -->
+<!-- SKILLS                        -->
+<!-- ══════════════════════════════ -->
+<section class="skills-section section-pad" id="skills">
+  <div class="container">
+    <div class="section-label">Competencies</div>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-divider"></div>
+
+    <div class="skills-grid">
+      <!-- Hard Skills -->
+      <div class="skill-category" data-reveal>
+        <h3>Hard Skills</h3>
+        <div class="skill-item">
+          <span class="skill-name">HTML & CSS</span>
+          <span class="skill-source">Farol 16, Tanna, Forta Luxury websites</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Tailwind CSS</span>
+          <span class="skill-source">Farol 16 site redesign</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">SEO & Google Search Console</span>
+          <span class="skill-source">Forta Luxury internship</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">HubSpot</span>
+          <span class="skill-source">CRM & marketing automation</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Brand Identity & Design</span>
+          <span class="skill-source">Farol 16, Luna Pedregal projects</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Meta Advertising</span>
+          <span class="skill-source">Forta Luxury client campaigns</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Netlify Deployment</span>
+          <span class="skill-source">Forta Luxury agency site</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Microsoft Excel</span>
+          <span class="skill-source">Data analysis & reporting</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Image Optimization</span>
+          <span class="skill-source">Sharp CLI, web performance</span>
+        </div>
+      </div>
+
+      <!-- Soft Skills -->
+      <div class="skill-category" data-reveal>
+        <h3>Soft Skills</h3>
+        <div class="skill-item">
+          <span class="skill-name">Client Communication</span>
+          <span class="skill-source">Translating feedback into design</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Creative Problem-Solving</span>
+          <span class="skill-source">Iterative design across projects</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Attention to Detail</span>
+          <span class="skill-source">Brand compliance, typography</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Project Management</span>
+          <span class="skill-source">Multiple concurrent client sites</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Bilingual (EN/ES)</span>
+          <span class="skill-source">Tanna bilingual website</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Adaptability</span>
+          <span class="skill-source">Rapid iteration on client feedback</span>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Self-Direction</span>
+          <span class="skill-source">Independent project ownership</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ -->
+<!-- EXPERIENCE                    -->
+<!-- ══════════════════════════════ -->
+<section class="section-pad" id="experience">
+  <div class="container">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Work Experience</h2>
+    <div class="section-divider"></div>
+
+    <!-- Forta Luxury -->
+    <div class="experience-item" data-reveal>
+      <div class="exp-meta">
+        <div class="exp-date">Mar 2026 — Present</div>
+        <div class="exp-location">Cabo San Lucas, Mexico</div>
+      </div>
+      <div class="exp-content">
+        <h3>Web Development Intern</h3>
+        <div class="exp-company"><a href="https://fortaluxury.com" target="_blank" rel="noopener">Forta Luxury</a></div>
+        <p class="exp-description">
+          Building and maintaining websites for luxury hospitality and real estate clients. Responsible for SEO strategy, graphic design, Meta advertising campaigns, content creation, site deployment, and performance optimization.
+        </p>
+
+        <div class="exp-achievement">
+          <div class="ach-label">Achievement</div>
+          <p>Designed and built the Forta Luxury agency website — the company's own brand site deployed on Netlify with bilingual content (EN/ES), SEO structured data, and a full video portfolio of client work.</p>
+        </div>
+
+        <div class="exp-achievement" style="margin-top: 0.75rem;">
+          <div class="ach-label">Achievement</div>
+          <p>Designed and built the Farol 16 restaurant website from concept to launch — a cinematic single-page site with drone video integration, scroll animations, and brand-compliant typography extracted from the identity manual.</p>
+        </div>
+
+        <div class="exp-achievement" style="margin-top: 0.75rem;">
+          <div class="ach-label">Achievement</div>
+          <p>Redesigned the Luna Pedregal luxury real estate brochure from a static 20-page PDF into an interactive HTML document with live availability pricing and floor plans.</p>
+        </div>
+
+        <div class="exp-achievement" style="margin-top: 0.75rem;">
+          <div class="ach-label">Achievement</div>
+          <p>Built the bilingual (EN/ES) Tanna by Farol 16 restaurant website with an interactive flip-card menu, brunch section, and optimized food photography pipeline using sharp CLI.</p>
+        </div>
+
+        <div class="exp-achievement" style="margin-top: 0.75rem;">
+          <div class="ach-label">Achievement</div>
+          <p>Produced the Villa 452 cinematic real estate video — compressed and optimized from 4K source footage into 720p and 1280p web-ready versions, launched as the featured portfolio piece on fortaluxury.com.</p>
+        </div>
+
+        <!-- Project previews -->
+        <div style="display:grid; grid-template-columns: repeat(2,1fr); gap:1rem; margin-top:2rem;">
+          <div class="project-preview" onclick="window.open('https://fortaluxury.com','_blank')">
+            <div class="overlay"><span>View Project</span></div>
+            <div class="project-info">
+              <h4>Forta Luxury</h4>
+              <p>Agency Website (Netlify)</p>
+            </div>
+          </div>
+          <div class="project-preview" onclick="window.open('../Farol16/index.html','_blank')">
+            <div class="overlay"><span>View Project</span></div>
+            <div class="project-info">
+              <h4>Farol 16</h4>
+              <p>Restaurant Website</p>
+            </div>
+          </div>
+          <div class="project-preview" onclick="window.open('../LUNA/brochure.html','_blank')">
+            <div class="overlay"><span>View Project</span></div>
+            <div class="project-info">
+              <h4>Luna Pedregal</h4>
+              <p>Digital Brochure</p>
+            </div>
+          </div>
+          <div class="project-preview" onclick="window.open('../tanna/tanna-website/index.html','_blank')">
+            <div class="overlay"><span>View Project</span></div>
+            <div class="project-info">
+              <h4>Tanna by Farol 16</h4>
+              <p>Bilingual Restaurant Site</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER: Previous experience -->
+    <!-- Add more experience-items here -->
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ -->
+<!-- ACHIEVEMENTS                  -->
+<!-- ══════════════════════════════ -->
+<section class="achievements-section section-pad" id="achievements">
+  <div class="container">
+    <div class="section-label">Impact</div>
+    <h2 class="section-title">Achievements</h2>
+    <div class="section-divider"></div>
+
+    <div class="achievements-grid">
+      <div class="achievement-card" data-reveal>
+        <div class="number">01</div>
+        <h4>Forta Luxury Website</h4>
+        <p>Built and deployed the agency's own brand site on Netlify — bilingual (EN/ES), SEO-optimized with structured data, and featuring a full video portfolio of client work at fortaluxury.com.</p>
+        <span class="tag">Web Dev & SEO</span>
+      </div>
+
+      <div class="achievement-card" data-reveal>
+        <div class="number">02</div>
+        <h4>Farol 16 Website</h4>
+        <p>Cinematic dark-aesthetic restaurant site with drone video integration, glass-morphism nav, and scroll-triggered animations. Designed to match the brand manual's typography and color system.</p>
+        <span class="tag">Design & Dev</span>
+      </div>
+
+      <div class="achievement-card" data-reveal>
+        <div class="number">03</div>
+        <h4>Luna Pedregal Brochure</h4>
+        <p>Transformed a 20-page static PDF into an interactive digital brochure for a luxury real estate development, featuring responsive layouts, availability pricing, and architectural floor plans.</p>
+        <span class="tag">Digital Brochure</span>
+      </div>
+
+      <div class="achievement-card" data-reveal>
+        <div class="number">04</div>
+        <h4>Tanna Bilingual Site</h4>
+        <p>Bilingual (EN/ES) restaurant site with interactive flip-card menu, optimized food photography pipeline using sharp CLI, and translated copy across two languages. Live at tannacabo.com.</p>
+        <span class="tag">Bilingual Build</span>
+      </div>
+
+      <div class="achievement-card" data-reveal>
+        <div class="number">05</div>
+        <h4>Villa 452 Cinematic Video</h4>
+        <p>Produced and optimized the featured real estate video on the Forta Luxury portfolio — compressed from 4K source into 720p and 1280p web-ready versions using ffmpeg for fast, high-quality playback.</p>
+        <span class="tag">Video Production</span>
+      </div>
+
+      <div class="achievement-card" data-reveal>
+        <div class="number">06</div>
+        <h4>Food Photography Pipeline</h4>
+        <p>Directed and processed the Tanna menu photography — compressed and color-matched dozens of dishes, integrated into a flip-card menu system with fine-tuned cropping for each plate.</p>
+        <span class="tag">Content & Dev</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ -->
+<!-- EDUCATION                     -->
+<!-- ══════════════════════════════ -->
+<section class="section-pad" id="education">
+  <div class="container">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic Background</h2>
+    <div class="section-divider"></div>
+
+    <div class="edu-item" data-reveal>
+      <div class="edu-date">2025 — 2026</div>
+      <div class="edu-content">
+        <h3>MSc in Marketing & Management for Luxury Tourism</h3>
+        <div class="edu-school">Les Roches Global Hospitality Education — Marbella, Spain</div>
+        <p class="edu-detail">Specializing in luxury brand strategy, digital marketing, and hospitality management. Currently completing a 24-week professional internship as part of the program.</p>
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER: Add undergraduate degree or other education -->
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════ -->
+<!-- CONTACT                       -->
+<!-- ══════════════════════════════ -->
+<section class="contact-section section-pad-lg" id="contact">
+  <div class="container">
+    <div class="contact-inner" data-reveal>
+      <h2>Let's Connect</h2>
+      <p>Open to opportunities in luxury hospitality marketing, brand strategy, and digital experience design.</p>
+      <div class="contact-links">
+        <a href="mailto:bella@wanderermt.com" class="cl-primary">Email Me</a>
+        <a href="https://www.linkedin.com/in/bellawanderer/" target="_blank" rel="noopener noreferrer" class="cl-outline">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ── -->
+<footer>
+  &copy; 2026 Bella Wanderer. All rights reserved.
+</footer>
+
+
+<!-- ── SCRIPTS ── -->
+<script>
+// Scroll reveal
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+// Mobile menu
+function closeMenu() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+      closeMenu();
+    }
+  });
+});
+</script>
+
+</body>
+</html>
